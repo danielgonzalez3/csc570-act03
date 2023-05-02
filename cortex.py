@@ -7,7 +7,6 @@ import sys
 from pydispatch import Dispatcher
 import warnings
 import threading
-from collections import deque
 import csv
 
 # define request id
@@ -71,8 +70,6 @@ class Cortex(Dispatcher):
         self.log_file = open("log.csv", "a", newline="")
         self.log_writer = csv.writer(self.log_file)
         self.log_writer.writerow(["Timestamp", "Level", "Message"])
-        self.log_entries = deque(maxlen=50)
-
         self.session_id = ''
         self.headset_id = ''
         self.debug = debug_mode
@@ -333,7 +330,7 @@ class Cortex(Dispatcher):
             com_data['power'] = result_dic['com'][1]
             com_data['time'] = result_dic['time']
             self.emit('new_com_data', data=com_data)
-            self.log_entries.append([datetime.now(), "INFO", com_data])
+            self.log_writer.writerow([datetime.now(), "INFO", com_data])
         elif result_dic.get('fac') != None:
             fe_data = {}
             fe_data['eyeAct'] = result_dic['fac'][0]    #eye action
@@ -343,20 +340,20 @@ class Cortex(Dispatcher):
             fe_data['lPow'] = result_dic['fac'][4]      #lower action power
             fe_data['time'] = result_dic['time']
             self.emit('new_fe_data', data=fe_data)
-            self.log_entries.append([datetime.now(), "INFO", fe_data])
+            self.log_writer.writerow([datetime.now(), "INFO", fe_data])
         elif result_dic.get('eeg') != None:
             eeg_data = {}
             eeg_data['eeg'] = result_dic['eeg']
             eeg_data['eeg'].pop() # remove markers
             eeg_data['time'] = result_dic['time']
             self.emit('new_eeg_data', data=eeg_data)
-            self.log_entries.append([datetime.now(), "INFO", eeg_data])
+            self.log_writer.writerow([datetime.now(), "INFO", eeg_data])
         elif result_dic.get('mot') != None:
             mot_data = {}
             mot_data['mot'] = result_dic['mot']
             mot_data['time'] = result_dic['time']
             self.emit('new_mot_data', data=mot_data)
-            self.log_entries.append([datetime.now(), "INFO", mot_data])
+            self.log_writer.writerow([datetime.now(), "INFO", mot_data])
         elif result_dic.get('dev') != None:
             dev_data = {}
             dev_data['signal'] = result_dic['dev'][1]
@@ -364,19 +361,19 @@ class Cortex(Dispatcher):
             dev_data['batteryPercent'] = result_dic['dev'][3]
             dev_data['time'] = result_dic['time']
             self.emit('new_dev_data', data=dev_data)
-            self.log_entries.append([datetime.now(), "INFO", dev_data])
+            self.log_writer.writerow([datetime.now(), "INFO", dev_data])
         elif result_dic.get('met') != None:
             met_data = {}
             met_data['met'] = result_dic['met']
             met_data['time'] = result_dic['time']
             self.emit('new_met_data', data=met_data)
-            self.log_entries.append([datetime.now(), "INFO", met_data])
+            self.log_writer.writerow([datetime.now(), "INFO", met_data])
         elif result_dic.get('pow') != None:
             pow_data = {}
             pow_data['pow'] = result_dic['pow']
             pow_data['time'] = result_dic['time']
             self.emit('new_pow_data', data=pow_data)
-            self.log_entries.append([datetime.now(), "INFO", pow_data])
+            self.log_writer.writerow([datetime.now(), "INFO", pow_data])
         elif result_dic.get('sys') != None:
             sys_data = result_dic['sys']
             self.emit('new_sys_data', data=sys_data)
