@@ -7,11 +7,14 @@ window.onload = async function() {
             if (data == null) {
                 return;
             }
-            const timestamp = new Date().toISOString();
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', second: '2-digit', hour12: false, timeZone: 'America/Los_Angeles'};
+            const timestamp = new Date().toLocaleString('en-US', options).replace(',', '').replace(/[/]/g,'-').replace(/ /g,'T') + '.000Z';
+            const [date, time] = timestamp.split('T');
+            const formattedTimestamp = `${date.split('-')[2]}-${date.split('-')[0]}-${date.split('-')[1]}T${time}`;
             // console.log(data); /* data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting) */
             var x = data.x; //these x coordinates are relative to the viewport
             var y= data.y; //these y coordinates are relative to the viewport
-            addToCSV(timestamp, x, y);
+            addToCSV(formattedTimestamp, x, y);
             //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
         })
         .saveDataAcrossSessions(true)

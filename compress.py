@@ -6,15 +6,15 @@ df1 = pd.read_csv('log.csv')
 # Read in the second CSV file
 df2 = pd.read_csv('webgazer_data.csv')
 
-# Convert the timestamps to datetime objects
-df1['timestamp'] = pd.to_datetime(df1['Timestamp'])
-df2['timestamp'] = pd.to_datetime(df2['timestamp'])
 
-# Merge the two dataframes based on the timestamp
-merged_df = pd.merge_asof(df1, df2, left_on='timestamp', right_on='timestamp', direction='nearest')
+df1['timestamp'] = df1['timestamp'].str[:-8]
+df2['timestamp'] = df2['timestamp'].str[:-5]
 
-# Drop the original 'Timestamp' column from df2
-merged_df.drop(columns='Timestamp', inplace=True)
+# Merge the dataframes
+merged_df = pd.concat([df1, df2])
+
+# Sort by the timestamp column
+merged_df = merged_df.sort_values(by=['timestamp'])
 
 # Write the merged dataframe to a new CSV file
-merged_df.to_csv('merged_file.csv', index=False)
+merged_df.to_csv('merged.csv', index=False)

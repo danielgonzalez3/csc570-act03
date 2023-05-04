@@ -69,7 +69,7 @@ class Cortex(Dispatcher):
     def __init__(self, client_id, client_secret, debug_mode=False, **kwargs):
         self.log_file = open("log.csv", "a", newline="")
         self.log_writer = csv.writer(self.log_file)
-        self.log_writer.writerow(["Timestamp", "Message"])
+        self.log_writer.writerow(["timestamp", "Message"])
 
         self.session_id = ''
         self.headset_id = ''
