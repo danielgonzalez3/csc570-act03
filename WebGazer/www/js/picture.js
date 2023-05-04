@@ -156,16 +156,6 @@ function ShowCalibrationPoint() {
 }
 
 
-// function ShowCalibrationPoint() {
-
-//   document.querySelectorAll('.Calibration').forEach((i) => {
-//     i.style.removeProperty('display');
-//   });
-//   // initially hides the middle button
-//   document.getElementById('Pt5').style.setProperty('display', 'none');
-// }
-
-
 
 
 
@@ -189,3 +179,43 @@ function ClearCalibration(){
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+
+
+
+
+
+
+// webgazer.setGazeListener(function(data, elapsedTime) {
+// 	if (data == null) {
+// 		return;
+// 	}
+// 	var xprediction = data.x; //these x coordinates are relative to the viewport
+// 	var yprediction = data.y; //these y coordinates are relative to the viewport
+// 	console.log(elapsedTime); //elapsed time is based on time since begin was called
+// }).begin();
+	
+
+
+
+
+// setInterval(function() {
+//   const timestamp = new Date().toISOString();
+//   var prediction = webgazer.getCurrentPrediction();
+//   let x = null;
+//   let y = null;
+  
+//   if (prediction) {
+//     x = prediction.x;
+//     y = prediction.y;
+//   }
+  
+//   const data = `${timestamp},${x},${y}\n`;
+//   fs.appendFile('eyes.csv', data, (err) => {
+//     if (err) {
+//       console.error(err);
+//     } else {
+//       console.log('Data saved to data.csv');
+//     }
+//   });
+//   // Write your code to save data here
+// }, 1000);
