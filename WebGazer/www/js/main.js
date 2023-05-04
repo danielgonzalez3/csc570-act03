@@ -34,11 +34,12 @@ window.onload = async function() {
 };
 
 // CSV header
-const csvHeader = "timestamp,x,y\n";
+const csvHeader = "timestamp,data\n";
+
 let csvData = csvHeader;
 // Add data to CSV string
 function addToCSV(timestamp, x, y) {
-  csvData += timestamp + "," + x + "," + y + "\n";
+  csvData += timestamp + "," + x + " " + y + "\n";
 }
 
 // Save CSV string to a file
