@@ -30,7 +30,6 @@ function PopUpInstruction(){
   }).then(isConfirm => {
     ShowCalibrationPoint();
   });
-
 }
 /**
   * Show the help instructions right at the start.
@@ -148,23 +147,27 @@ window.addEventListener('load', docLoad);
  * Show the Calibration Points
  */
 function ShowCalibrationPoint() {
-  // Get the div that contains the calibration points
-  // const calibrationDiv = document.querySelector('.calibrationDiv');
-  // // Create an array of image paths
-  // const imagePaths = [
-  //   './path/to/image1.png',
-  //   './path/to/image2.png',
-  //   './path/to/image3.png',
-  //   // Add more image paths here
-  // ];
-
 
   document.querySelectorAll('.Calibration').forEach((i) => {
     i.style.removeProperty('display');
   });
   // initially hides the middle button
-  document.getElementById('Pt5').style.setProperty('display', 'none');
+  // document.getElementById('Pt5').style.setProperty('display', 'none');
 }
+
+
+// function ShowCalibrationPoint() {
+
+//   document.querySelectorAll('.Calibration').forEach((i) => {
+//     i.style.removeProperty('display');
+//   });
+//   // initially hides the middle button
+//   document.getElementById('Pt5').style.setProperty('display', 'none');
+// }
+
+
+
+
 
 /**
 * This function clears the calibration buttons memory
